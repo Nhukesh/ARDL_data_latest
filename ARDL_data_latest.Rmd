@@ -1,0 +1,42 @@
+---
+title: "ARDL"
+author: "Nhu"
+date: "2024-07-12"
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r cars}
+library(dynlm)
+library(lmtest)
+library(sandwich)
+
+data <- read.csv("E:/Desktop/AD/ARDL_data.csv")
+
+data_ts <- ts(data,start=c(1975,1), frequency = 1)
+
+model <- dynlm(GDP~L(GDP,1:4)+L(Grant,0:4)+L(Loan, 0:4), data = data_ts)
+summary(model)
+
+model1 <- dynlm(GDP~L(GDP,1)+L(Grant,1)+L(Loan, 1), data = data_ts)
+summary(model1)
+
+
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
